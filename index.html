@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Automize Company</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0a0a0a;
+    }
+
+    /* NAVBAR */
+    .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-image: linear-gradient(90deg, #000000, #3533cd);
+    padding: 1.5rem 2rem;
+    border-bottom: 3px solid #00f5d4; /* cor ciano para contraste */
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    .menu {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .menu li a {
+      text-decoration: none;
+      font-size: 1.1rem;
+      color: #d1d5ff;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .menu li a:hover {
+      color: #ffffff;
+    }
+
+    .navbar-logo {
+      height: 48px;
+      width: auto;
+      border-radius: 8px;
+    }
+
+    /* SEÇÃO INICIAL */
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 6rem;
+      min-height: 90vh;
+      background-image: linear-gradient(90deg, #000000, #3533cd);
+      color: white;
+      flex-wrap: wrap;
+    }
+
+    .hero-content {
+      max-width: 600px;
+      flex: 1;
+    }
+
+    .hero h1 {
+      font-size: 2.6rem;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #d1d5ff;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      padding: 0.8rem 1.6rem;
+      border-radius: 999px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+      transition: transform 0.2s ease;
+    }
+
+    .btn.secondary {
+      background-color: transparent;
+      border: 2px solid #3533cd;
+      color: #ffffff;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+    }
+
+    .hero-image {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 2rem;
+    }
+
+    .hero-image img {
+      width: 700px;
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(53, 51, 205, 0.5);
+    }
+
+    .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    }
+
+    .card {
+    background-color: #1a1a1a;
+    border: 2px solid #3533cd;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 0 12px rgba(0, 245, 212, 0.2);
+    transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+    transform: translateY(-5px);
+    }
+
+    .card h3 {
+    color: #00f5d4;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    }
+
+    .card p {
+    color: #d1d5ff;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+    .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    background-image: linear-gradient(90deg, #000000, #3533cd);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 245, 212, 0.2);
+    }
+
+    .benefits-grid ul {
+    list-style: none;
+    padding-left: 0;
+    color: #d1d5ff;
+    font-size: 1rem;
+    line-height: 1.6;
+    }
+
+    .benefits-grid ul li {
+    margin-bottom: 0.5rem;
+    }
+
+    .carousel-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    }
+
+    .carousel-scroll {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 3rem; /* espaçamento maior entre os cards */
+    padding-bottom: 2rem;
+    max-width: 1400px;
+    scrollbar-width: thin;
+    scrollbar-color: #00f5d4 transparent;
+    }
+
+    .carousel-scroll::-webkit-scrollbar {
+    height: 8px;
+    }
+    .carousel-scroll::-webkit-scrollbar-thumb {
+    background-color: #00f5d4;
+    border-radius: 4px;
+    }
+    .carousel-scroll::-webkit-scrollbar-track {
+    background: transparent;
+    }
+
+    .carousel-card {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    width: 400px; /* card mais largo */
+    background: linear-gradient(135deg, #111111, #1a1a1a);
+    border-radius: 12px;
+    text-decoration: none;
+    color: #d1d5ff;
+    box-shadow: 0 0 12px rgba(0, 245, 212, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .carousel-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 245, 212, 0.3);
+    }
+
+    .carousel-card img {
+    width: 100%;
+    height: 240px; /* imagem maior */
+    object-fit: cover;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    }
+
+    .card-text {
+    padding: 1.5rem;
+    }
+
+    .card-text h3 {
+    color: #00f5d4;
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+    }
+
+    .card-text p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: #d1d5ff;
+    }
+
+    /* Responsivo para telas menores */
+    @media (max-width: 768px) {
+    .carousel-card {
+        width: 280px;
+    }
+
+    .carousel-card img {
+        height: 180px;
+    }
+
+    .card-text h3 {
+        font-size: 1.1rem;
+    }
+
+    .card-text p {
+        font-size: 0.95rem;
+    }
+    }
+    .sobre-container {
+    display: flex;
+    gap: 4rem;
+    flex-wrap: wrap;
+    align-items: center;
+    }
+
+    .sobre-texto {
+    flex: 1;
+    min-width: 300px;
+    }
+
+    .sobre-texto h3 {
+    font-size: 1.6rem;
+    color: #00f5d4;
+    margin-bottom: 1rem;
+    }
+
+    .sobre-texto p {
+    font-size: 1.1rem;
+    color: #d1d5ff;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    }
+
+    .sobre-imagem {
+    flex: 1;
+    min-width: 300px;
+    text-align: center;
+    }
+
+    .sobre-imagem img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 245, 212, 0.2);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">Automize Company</div>
+    <ul class="menu">
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#solucoes">Soluções</a></li>
+        <li><a href="#cases">Cases de Sucesso</a></li>
+        <li><a href="#sobre">Sobre a Automize</a></li>
+    </ul>
+    <img src="logo201.png" alt="Logo Automize" class="navbar-logo">
+  </nav>
+
+  <!-- SEÇÃO INICIAL -->
+  <section class="hero" id="inicio">
+    <div class="hero-content">
+      <h1>Automatize processos.<br>Reduza custos.<br>Aumente a produtividade.</h1>
+      <p>Soluções personalizadas de automação para empresas que querem escalar com eficiência. Transformamos tarefas manuais em sistemas inteligentes que trabalham por você.</p>
+      <div class="hero-buttons">
+        <a href="contato.html" class="btn secondary">Solicitar Orçamento</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="perfil1.png" alt="Imagem do Matheus Tonini">
+    </div>
+  </section>
+
+  <!-- SEÇÃO SOLUÇÕES -->
+    <section id="solucoes" style="padding: 17rem 8rem; background-color: #111111; color: white;">
+    <h2 style="font-size: 2.2rem; margin-bottom: 2rem; color: #00f5d4;">Automação e Inovação para Sua Empresa</h2>
+    <p style="font-size: 1.2rem; color: #d1d5ff; margin-bottom: 3rem;">
+        Estes são os serviços que oferecemos para automatizar e tornar sua operação mais eficiente.
+    </p>
+
+    <!-- CARDS DE SERVIÇOS -->
+    <div class="cards-container">
+        <div class="card">
+        <h3>Automação de Processos</h3>
+        <p>Criação de sistemas que executam tarefas repetitivas automaticamente, economizando tempo e recursos.</p>
+        </div>
+        <div class="card">
+        <h3>Desenvolvimento de Bots</h3>
+        <p>Bots personalizados para atendimento, vendas, suporte ou integração com plataformas como WhatsApp e Telegram.</p>
+        </div>
+        <div class="card">
+        <h3>Integração de Sistemas</h3>
+        <p>Conectamos diferentes softwares e plataformas para que sua operação funcione de forma fluida e inteligente.</p>
+        </div>
+        <div class="card">
+        <h3>Dashboards e Relatórios</h3>
+        <p>Visualize seus dados em tempo real com painéis interativos e relatórios automatizados.</p>
+        </div>
+    </div>
+
+    <!-- BENEFÍCIOS DA AUTOMAÇÃO -->
+    <h2 style="font-size: 2.2rem; margin-top: 8rem; margin-bottom: 2rem; color: #00f5d4;">Por que automatizar?</h2>
+    <p style="font-size: 1.2rem; color: #d1d5ff; margin-bottom: 3rem;">
+        Esses são os principais benefícios que sua empresa pode alcançar com automação de processos.
+    </p>
+
+    <div class="benefits-grid">
+        <ul>
+        <li>✅ Diminuir o número de retrabalhos</li>
+        <li>✅ Eliminar o uso excessivo de e-mails</li>
+        <li>✅ Controlar o tempo para cada tarefa dentro do processo</li>
+        <li>✅ Otimizar a organização, a padronização e o foco da equipe</li>
+        <li>✅ Reter o conhecimento sobre o processo e mantê-lo dentro da empresa</li>
+        </ul>
+        <ul>
+        <li>✅ Diminuir o ruído na troca de informação</li>
+        <li>✅ Eliminar o deslocamento para a busca de informações</li>
+        <li>✅ Atribuir responsabilidades</li>
+        <li>✅ Centralizar documentos e informações</li>
+        <li>✅ Diminuir dúvidas da equipe e necessidade de auxílio para execução das atividades</li>
+        </ul>
+        <ul>
+        <li>✅ Eliminar o trânsito de papéis</li>
+        <li>✅ Identificar as atividades que demandam mais tempo a serem executadas</li>
+        <li>✅ Priorizar atividades</li>
+        <li>✅ Garantir que a atividade seja executada dentro do prazo</li>
+        <li>✅ Usar a aprovação e assinatura de documentos de maneira online, assegurada por Lei</li>
+        </ul>
+    </div>
+    </section>
+
+    <!-- SEÇÃO CASES -->
+    <section id="cases" style="padding: 17rem 8rem; background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+color: white;">
+    <h2 style="font-size: 2.2rem; margin-bottom: 2rem; color: #00f5d4;">Cases de Sucesso</h2>
+    <p style="font-size: 1.2rem; color: #ffffff; margin-bottom: 3rem;">
+        Veja como ajudamos nossos clientes a transformar seus processos com automação e inovação.
+    </p>
+
+    <div class="carousel-wrapper">
+        <div class="carousel-scroll">
+        <a href="#" class="carousel-card">
+            <img src="project.png" alt="Projeto Cliente A">
+            <div class="card-text">
+            <h3>Cliente A</h3>
+            <p>Integração entre CRM e ERP com redução de 40% no tempo operacional.</p>
+            </div>
+        </a>
+        <a href="#" class="carousel-card">
+            <img src="project.png" alt="Projeto Cliente B">
+            <div class="card-text">
+            <h3>Cliente B</h3>
+            <p>Bot de atendimento no WhatsApp que triplicou a conversão.</p>
+            </div>
+        </a>
+        <a href="#" class="carousel-card">
+            <img src="project.png" alt="Projeto Cliente C">
+            <div class="card-text">
+            <h3>Cliente C</h3>
+            <p>Dashboard com dados em tempo real para decisões estratégicas.</p>
+            </div>
+        </a>
+        <a href="#" class="carousel-card">
+            <img src="project.png" alt="Projeto Cliente D">
+            <div class="card-text">
+            <h3>Cliente D</h3>
+            <p>Automação de processos internos com redução de erros operacionais.</p>
+            </div>
+        </a>
+        <a href="#" class="carousel-card">
+            <img src="project.png" alt="Projeto Cliente E">
+            <div class="card-text">
+            <h3>Cliente E</h3>
+            <p>Integração de sistemas financeiros com relatórios automatizados.</p>
+            </div>
+        </a>
+        <a href="#" class="carousel-card">
+            <img src="project.png" alt="Projeto Cliente F">
+            <div class="card-text">
+            <h3>Cliente F</h3>
+            <p>Bot de suporte técnico com atendimento 24h integrado ao Telegram.</p>
+            </div>
+        </a>
+        </div>
+    </div>
+    </section>
+
+    <!-- SEÇÃO SOBRE A EMPRESA -->
+    <section id="sobre" style="padding: 17rem 8rem; background: linear-gradient(135deg, #1a1a1a, #2a2a2a); color: white;">
+    <h2 style="font-size: 2.2rem; margin-bottom: 1rem; color: #00f5d4;">Sobre a Automize</h2>
+    <p style="font-size: 1.2rem; color: #d1d5ff; margin-bottom: 4rem;">
+        Somos especialistas em automação inteligente. Nosso propósito é transformar processos manuais em sistemas eficientes que geram resultados reais.
+    </p>
+
+    <div class="sobre-container">
+        <div class="sobre-texto">
+        <h3>Transformamos tecnologia em produtividade</h3>
+        <p>
+            A Automize nasceu da paixão por resolver problemas com código. Atuamos com empresas que desejam escalar, reduzir custos e ganhar agilidade. Desenvolvemos bots, sistemas personalizados, integrações e dashboards que colocam a tecnologia para trabalhar a favor do seu negócio.
+        </p>
+        <p>
+            Com uma abordagem consultiva e técnica, entregamos soluções sob medida, com foco em resultado e simplicidade. Nossa missão é automatizar o que é repetitivo, organizar o que é caótico e digitalizar o que ainda está no papel.
+        </p>
+        </div>
+        <div class="sobre-imagem">
+        <img src="project.png" alt="Equipe Automize">
+        </div>
+    </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="background-color: #0a0a0a; color: #d1d5ff; padding: 4rem 8rem; text-align: center;">
+    <div style="margin-bottom: 2rem;">
+        <h3 style="color: #00f5d4; font-size: 1.4rem;">Automize Company</h3>
+        <p style="font-size: 1rem;">Automação inteligente para empresas que querem escalar com eficiência.</p>
+    </div>
+    <div style="font-size: 0.9rem; color: #a3a3ff;">
+        <p>© 2025 Automize Company. Todos os direitos reservados.</p>
+        <p>Desenvolvido por Matheus Tonini</p>
+    </div>
+    </footer>
+
+</body>
+</html>
